@@ -11,7 +11,7 @@ Ce mini-projet est une interface utilisateur (UI) moderne et intuitive conçue a
 - **Slider interactif :** Curseur glissant pour évaluer le *Niveau en programmation* (de 0 à 100).
 - **Menu déroulant (Dropdown) :** Liste pour le choix de la *Formation*.
 
-## 📸 Aperçu (Screenshot)
+## 📸 Aperçu 
 Voici un aperçu visuel du rendu de l'interface :
 
 <img src="TESTFLUTTER.jpeg" width="300" alt="Aperçu de l'interface" />
