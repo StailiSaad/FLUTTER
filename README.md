@@ -14,7 +14,7 @@ Ce mini-projet est une interface utilisateur (UI) moderne et intuitive conçue a
 ## 📸 Aperçu (Screenshot)
 Voici un aperçu visuel du rendu de l'interface :
 
-<img src="TEST.jpeg" width="300" alt="Aperçu de l'interface" />
+<img src="TESTFLUTTER.jpeg" width="300" alt="Aperçu de l'interface" />
 
 ## 🛠️ Technologies
 - **Framework :** Flutter (Material Design 3)
@@ -27,5 +27,3 @@ Voici un aperçu visuel du rendu de l'interface :
 3. Lancez votre émulateur ou connectez votre appareil.
 4. Exécutez la commande `flutter run`.
 
----
-*Ce projet a été structuré avec soin pour offrir un code clair, documenté et prêt à l'emploi. N'hésitez pas à le cloner et à le modifier !*
