@@ -41,14 +41,14 @@ class _FirstPageState extends State<FirstPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('First Page'),
-        backgroundColor: Colors.blue[300], // AppBar of light blue color like in the image
+        backgroundColor: Colors.blue[300], 
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Saisir votre nom
+           
             const Text(
               'Saisir votre nom',
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
@@ -57,13 +57,13 @@ class _FirstPageState extends State<FirstPage> {
             const TextField(
               decoration: InputDecoration(
                 hintText: 'Entrez votre nom',
-                border: OutlineInputBorder(), // To have the bounding box like over the image
+                border: OutlineInputBorder(), 
                 isDense: true,
               ),
             ),
             const SizedBox(height: 16),
 
-            // Saisir votre Age
+            
             const Text(
               'Saisir votre Age',
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
@@ -79,7 +79,7 @@ class _FirstPageState extends State<FirstPage> {
             ),
             const SizedBox(height: 16),
 
-            // Genre
+            
             const Text(
               'Genre :',
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
@@ -111,12 +111,12 @@ class _FirstPageState extends State<FirstPage> {
             ),
             const SizedBox(height: 16),
 
-            // Centre d'interet
+          
             const Text(
               'Centre d\'interet :',
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
             ),
-            // Customizing CheckboxListTile to match the layout
+            
             Transform.translate(
               offset: const Offset(-8, 0),
               child: CheckboxListTile(
@@ -161,7 +161,7 @@ class _FirstPageState extends State<FirstPage> {
             ),
             const SizedBox(height: 16),
 
-            // Niveau en programmation
+          
             const Text(
               'Niveau en programmation :',
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
@@ -186,7 +186,7 @@ class _FirstPageState extends State<FirstPage> {
             ),
             const SizedBox(height: 16),
 
-            // Formation
+           
             const Text(
               'Formation :',
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
@@ -195,7 +195,7 @@ class _FirstPageState extends State<FirstPage> {
             DropdownButton<String>(
               value: formation,
               isExpanded: false,
-              underline: const SizedBox(), // Removes the default underline to match the image
+              underline: const SizedBox(),  
               items: <String>['Informatique', 'Réseaux', 'Design', 'Autre']
                   .map<DropdownMenuItem<String>>((String value) {
                 return DropdownMenuItem<String>(
