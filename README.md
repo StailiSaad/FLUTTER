@@ -14,7 +14,7 @@ Ce mini-projet est une interface utilisateur (UI) moderne et intuitive conçue a
 ## 📸 Aperçu (Screenshot)
 Voici un aperçu visuel du rendu de l'interface :
 
-![Aperçu de l'interface](TEST.jpeg)
+<img src="TEST.jpeg" width="300" alt="Aperçu de l'interface" />
 
 ## 🛠️ Technologies
 - **Framework :** Flutter (Material Design 3)
