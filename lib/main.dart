@@ -1,5 +1,23 @@
 import 'package:flutter/material.dart';
 
+class UserProfile {
+  final String nom;
+  final String age;
+  final String genre;
+  final List<String> interets;
+  final double niveauCompetence;
+  final String formation;
+
+  UserProfile({
+    required this.nom,
+    required this.age,
+    required this.genre,
+    required this.interets,
+    required this.niveauCompetence,
+    required this.formation,
+  });
+}
+
 void main() {
   runApp(const MyApp());
 }
@@ -10,208 +28,211 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'First Page',
+      title: "Gestion Profil DevOAM",
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
         useMaterial3: true,
       ),
-      home: const FirstPage(),
-      debugShowCheckedModeBanner: false,
+      initialRoute: '/',
+      routes: {
+        '/': (context) => const MyHomePage(title: "Formulaire d'Inscription"),
+        '/profile': (context) => const ProfilePage(),
+      },
     );
   }
 }
 
-class FirstPage extends StatefulWidget {
-  const FirstPage({super.key});
+class MyHomePage extends StatefulWidget {
+  const MyHomePage({super.key, required this.title});
+  final String title;
 
   @override
-  State<FirstPage> createState() => _FirstPageState();
+  State<MyHomePage> createState() => _MyHomePageState();
 }
 
-class _FirstPageState extends State<FirstPage> {
-  String gender = 'Homme';
-  bool codage = false;
-  bool design = false;
-  bool gaming = false;
-  double niveau = 0.0;
-  String formation = 'Informatique';
+class _MyHomePageState extends State<MyHomePage> {
+  final TextEditingController _nomcontroller = TextEditingController();
+  final TextEditingController _agecontroller = TextEditingController();
+
+  UserProfile? _userProfile;
+
+  String _genre = "Homme";
+  bool _codage = false;
+  bool _design = false;
+  bool _gaming = false;
+  double _competenceLevel = 1.0;
+  String _formation = "Informatique";
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('First Page'),
-        backgroundColor: Colors.blue[300], 
+        title: Text(widget.title),
+        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        centerTitle: true,
       ),
+      drawer: _buildDrawer(context),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-           
-            const Text(
-              'Saisir votre nom',
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-            ),
-            const SizedBox(height: 8),
-            const TextField(
-              decoration: InputDecoration(
-                hintText: 'Entrez votre nom',
-                border: OutlineInputBorder(), 
-                isDense: true,
-              ),
-            ),
-            const SizedBox(height: 16),
-
-            
-            const Text(
-              'Saisir votre Age',
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-            ),
-            const SizedBox(height: 8),
-            const TextField(
-              keyboardType: TextInputType.number,
-              decoration: InputDecoration(
-                hintText: 'Entrez votre Age',
+            _buildSectionTitle("Informations Personnelles"),
+            const SizedBox(height: 10),
+            TextField(
+              controller: _nomcontroller,
+              decoration: const InputDecoration(
+                labelText: "Nom Complet",
                 border: OutlineInputBorder(),
-                isDense: true,
+                prefixIcon: Icon(Icons.person),
               ),
             ),
-            const SizedBox(height: 16),
+            const SizedBox(height: 12),
+            TextField(
+              controller: _agecontroller,
+              keyboardType: TextInputType.number,
+              decoration: const InputDecoration(
+                labelText: "Âge",
+                border: OutlineInputBorder(),
+                prefixIcon: Icon(Icons.cake),
+              ),
+            ),
+            const SizedBox(height: 30),
+            Center(
+              child: ElevatedButton.icon(
+                icon: const Icon(Icons.save),
+                label: const Text("Enregistrer et Voir Profil"),
+                onPressed: () {
+                  List<String> listInterets = [];
+                  if (_codage) listInterets.add('Codage');
+                  if (_design) listInterets.add('Design');
+                  if (_gaming) listInterets.add('Gaming');
 
-            
-            const Text(
-              'Genre :',
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-            ),
-            Row(
-              children: [
-                Radio<String>(
-                  value: 'Homme',
-                  groupValue: gender,
-                  onChanged: (String? value) {
-                    setState(() {
-                      gender = value!;
-                    });
-                  },
-                ),
-                const Text('Homme'),
-                const SizedBox(width: 20),
-                Radio<String>(
-                  value: 'Femme',
-                  groupValue: gender,
-                  onChanged: (String? value) {
-                    setState(() {
-                      gender = value!;
-                    });
-                  },
-                ),
-                const Text('Femme'),
-              ],
-            ),
-            const SizedBox(height: 16),
+                  _userProfile = UserProfile(
+                    nom: _nomcontroller.text,
+                    age: _agecontroller.text,
+                    genre: _genre,
+                    interets: listInterets,
+                    niveauCompetence: _competenceLevel,
+                    formation: _formation,
+                  );
 
-          
-            const Text(
-              'Centre d\'interet :',
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-            ),
-            
-            Transform.translate(
-              offset: const Offset(-8, 0),
-              child: CheckboxListTile(
-                title: const Text('Codage'),
-                value: codage,
-                controlAffinity: ListTileControlAffinity.leading,
-                contentPadding: EdgeInsets.zero,
-                onChanged: (bool? value) {
-                  setState(() {
-                    codage = value!;
-                  });
+                  Navigator.pushNamed(
+                    context,
+                    '/profile',
+                    arguments: _userProfile,
+                  );
                 },
               ),
-            ),
-            Transform.translate(
-              offset: const Offset(-8, 0),
-              child: CheckboxListTile(
-                title: const Text('Design'),
-                value: design,
-                controlAffinity: ListTileControlAffinity.leading,
-                contentPadding: EdgeInsets.zero,
-                onChanged: (bool? value) {
-                  setState(() {
-                    design = value!;
-                  });
-                },
-              ),
-            ),
-            Transform.translate(
-              offset: const Offset(-8, 0),
-              child: CheckboxListTile(
-                title: const Text('Gaming'),
-                value: gaming,
-                controlAffinity: ListTileControlAffinity.leading,
-                contentPadding: EdgeInsets.zero,
-                onChanged: (bool? value) {
-                  setState(() {
-                    gaming = value!;
-                  });
-                },
-              ),
-            ),
-            const SizedBox(height: 16),
-
-          
-            const Text(
-              'Niveau en programmation :',
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-            ),
-            const SizedBox(height: 8),
-            Row(
-              children: [
-                const Text('Débutant', style: TextStyle(fontSize: 12),),
-                Expanded(
-                  child: Slider(
-                    value: niveau,
-                    min: 0,
-                    max: 100,
-                    onChanged: (double value) {
-                      setState(() {
-                        niveau = value;
-                      });
-                    },
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 16),
-
-           
-            const Text(
-              'Formation :',
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-            ),
-            const SizedBox(height: 8),
-            DropdownButton<String>(
-              value: formation,
-              isExpanded: false,
-              underline: const SizedBox(),  
-              items: <String>['Informatique', 'Réseaux', 'Design', 'Autre']
-                  .map<DropdownMenuItem<String>>((String value) {
-                return DropdownMenuItem<String>(
-                  value: value,
-                  child: Text(value),
-                );
-              }).toList(),
-              onChanged: (String? newValue) {
-                setState(() {
-                  formation = newValue!;
-                });
-              },
-            ),
+            )
           ],
         ),
       ),
+    );
+  }
+
+  Widget _buildSectionTitle(String title) {
+    return Text(
+      title,
+      style: const TextStyle(
+        fontSize: 16,
+        fontWeight: FontWeight.bold,
+        color: Colors.blue,
+      ),
+    );
+  }
+
+  Widget _buildDrawer(BuildContext context) {
+    return Drawer(
+      child: ListView(
+        children: [
+          UserAccountsDrawerHeader(
+            accountName: Text(
+              _nomcontroller.text.isEmpty
+                  ? "Étudiant ISTA"
+                  : _nomcontroller.text,
+            ),
+            accountEmail: const Text("android.dev@safi.ma"),
+            currentAccountPicture: const CircleAvatar(
+              backgroundColor: Colors.white,
+              child: Icon(Icons.person, size: 40),
+            ),
+          ),
+          ListTile(
+            leading: const Icon(Icons.account_box),
+            title: const Text('Mon Profil'),
+            onTap: () {
+              Navigator.pop(context);
+              Navigator.pushNamed(
+                context,
+                '/profile',
+                arguments: _userProfile,
+              );
+            },
+          ),
+        ],
+      ),
+    );
+  }
+
+  @override
+  void dispose() {
+    _nomcontroller.dispose();
+    _agecontroller.dispose();
+    super.dispose();
+  }
+}
+
+class ProfilePage extends StatelessWidget {
+  const ProfilePage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final profile =
+        ModalRoute.of(context)?.settings.arguments as UserProfile?;
+
+    return Scaffold(
+      appBar: AppBar(title: const Text('Détails du Profil')),
+      body: profile == null
+          ? const Center(child: Text("Ma derti walo f-formulaire!"))
+          : _buildProfileUI(profile),
+    );
+  }
+
+  Widget _buildProfileUI(UserProfile p) {
+    return ListView(
+      padding: const EdgeInsets.all(20),
+      children: [
+        const Center(
+          child: CircleAvatar(
+            radius: 60,
+            child: Icon(Icons.person, size: 60),
+          ),
+        ),
+        Card(
+          elevation: 4,
+          child: Column(
+            children: [
+              _buildInfoTile(Icons.badge, "Nom Complet", p.nom),
+              _buildInfoTile(Icons.calendar_today, "Âge", "${p.age} ans"),
+              _buildInfoTile(
+                Icons.interests,
+                "Centres d'intérêt",
+                p.interets.join(' - '),
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildInfoTile(IconData icon, String label, String value) {
+    return ListTile(
+      leading: Icon(icon, color: Colors.blue),
+      title: Text(label, style: const TextStyle(fontWeight: FontWeight.bold)),
+      subtitle: Text(value),
     );
   }
 }
